@@ -469,8 +469,8 @@ namespace DDMondaysWinnerCount
             string SubsessionResultString = "https://members-ng.iracing.com/data/results/get?subsession_id=" + SubsessionId;
 
 
-            string username = "FILL_IN_YOUR_ACCOUNT";
-            string password = "FILL_IN_YOUR_PASSWORD";
+            string username = "";
+            string password = "";
 
 
             using var sha256 = System.Security.Cryptography.SHA256.Create();
@@ -511,7 +511,7 @@ namespace DDMondaysWinnerCount
             List<SessionResult> sessionResult = root.data.session_results;
             foreach (var item in sessionResult)
             {
-                if (item.simsession_name != "HEAT 1" && item.simsession_name != "FEATURE"
+                if (item.simsession_name != "HEAT 1" && item.simsession_name != "HEAT 2" && item.simsession_name != "FEATURE"
                     && item.simsession_name != "QUALIFY" && item.simsession_name != "RACE" 
                     && item.simsession_name != "CONSOLATION") { continue; }
                 var name = item.simsession_name;
@@ -564,7 +564,9 @@ namespace DDMondaysWinnerCount
                 sb.Append(item.ToString());
                 sb.Append(" (Qual: " + pilotResultsQualy.Where(x => x.Name == item.Name && x.SessionTypeName == "QUALIFY")
                     .Select(x => x.Position).FirstOrDefault().ToString());
-                sb.Append(",Heat: " + pilotResults.Where(x => x.Name == item.Name && x.SessionTypeName == "HEAT 1")
+                sb.Append(",Heat 1: " + pilotResults.Where(x => x.Name == item.Name && x.SessionTypeName == "HEAT 1")
+                    .Select(x => x.Position).FirstOrDefault().ToString());
+                sb.Append(",Heat 2: " + pilotResults.Where(x => x.Name == item.Name && x.SessionTypeName == "HEAT 2")
                     .Select(x => x.Position).FirstOrDefault().ToString());
                 sb.Append(",Consolation: " + pilotResults.Where(x => x.Name == item.Name && x.SessionTypeName == "CONSOLATION")
                     .Select(x => x.Position).FirstOrDefault().ToString());
@@ -582,8 +584,10 @@ namespace DDMondaysWinnerCount
             {
                 StringBuilder sb = new StringBuilder();
                 sb.Append(item.ToString());
-                sb.Append(" (Heat: " + pilotResults.Where(x => x.Name == item.Name && x.SessionTypeName == "HEAT 1")
+                sb.Append(" (Heat 1: " + pilotResults.Where(x => x.Name == item.Name && x.SessionTypeName == "HEAT 1")
                     .Select(x => x.Position).FirstOrDefault().ToString());
+                sb.Append(",Heat 2: " + pilotResults.Where(x => x.Name == item.Name && x.SessionTypeName == "HEAT 2")
+                    .Select(x => x.Position).FirstOrDefault().ToString());      
                 sb.Append(",Consolation: " + pilotResults.Where(x => x.Name == item.Name && x.SessionTypeName == "CONSOLATION")
                     .Select(x => x.Position).FirstOrDefault().ToString());
                 sb.Append(",Feature: " + pilotResults.Where(x => x.Name == item.Name && x.SessionTypeName == "FEATURE")
@@ -613,7 +617,8 @@ namespace DDMondaysWinnerCount
             List<SessionResult> sessionResult = root.session_results;
             foreach (var item in sessionResult)
             {
-                if (item.simsession_name != "HEAT 1" && item.simsession_name != "FEATURE"
+                if (item.simsession_name != "HEAT 1" && item.simsession_name != "HEAT 2" 
+                    && item.simsession_name != "FEATURE"
                     && item.simsession_name != "QUALIFY" && item.simsession_name != "RACE"
                     && item.simsession_name != "CONSOLATION") { continue; }
                 var name = item.simsession_name;
@@ -666,7 +671,9 @@ namespace DDMondaysWinnerCount
                 sb.Append(item.ToString());
                 sb.Append(" (Qual: " + pilotResultsQualy.Where(x => x.Name == item.Name && x.SessionTypeName == "QUALIFY")
                     .Select(x => x.Position).FirstOrDefault().ToString());
-                sb.Append(",Heat: " + pilotResults.Where(x => x.Name == item.Name && x.SessionTypeName == "HEAT 1")
+                sb.Append(",Heat 1: " + pilotResults.Where(x => x.Name == item.Name && x.SessionTypeName == "HEAT 1")
+                    .Select(x => x.Position).FirstOrDefault().ToString());
+                sb.Append(",Heat 2: " + pilotResults.Where(x => x.Name == item.Name && x.SessionTypeName == "HEAT 2")
                     .Select(x => x.Position).FirstOrDefault().ToString());
                 sb.Append(",Consolation: " + pilotResults.Where(x => x.Name == item.Name && x.SessionTypeName == "CONSOLATION")
                     .Select(x => x.Position).FirstOrDefault().ToString());
@@ -684,7 +691,9 @@ namespace DDMondaysWinnerCount
             {
                 StringBuilder sb = new StringBuilder();
                 sb.Append(item.ToString());
-                sb.Append(" (Heat: " + pilotResults.Where(x => x.Name == item.Name && x.SessionTypeName == "HEAT 1")
+                sb.Append(" (Heat 1: " + pilotResults.Where(x => x.Name == item.Name && x.SessionTypeName == "HEAT 1")
+                    .Select(x => x.Position).FirstOrDefault().ToString());
+                sb.Append(",Heat 2: " + pilotResults.Where(x => x.Name == item.Name && x.SessionTypeName == "HEAT 2")
                     .Select(x => x.Position).FirstOrDefault().ToString());
                 sb.Append(",Consolation: " + pilotResults.Where(x => x.Name == item.Name && x.SessionTypeName == "CONSOLATION")
                     .Select(x => x.Position).FirstOrDefault().ToString());
